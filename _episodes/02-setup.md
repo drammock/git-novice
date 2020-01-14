@@ -24,8 +24,8 @@ where `verb` is what we actually want to do and `options` is additional optional
 Dracula sets up his new laptop:
 
 ~~~
-$ git config --global user.name "Vlad Dracula"
-$ git config --global user.email "vlad@tran.sylvan.ia"
+$ git config --global user.name "Anthony Valente"
+$ git config --global user.email "valenta4@uw.edu"
 ~~~
 {: .language-bash}
 

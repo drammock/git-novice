@@ -27,11 +27,11 @@ and cons of this in the final section of this lesson.
 
 Let's start by sharing the changes we've made to our current project with the
 world.  Log in to GitHub, then click on the icon in the top right corner to
-create a new repository called `planets`:
+create a new repository called `gapminder-analysis`:
 
 ![Creating a Repository on GitHub (Step 1)](../fig/github-create-repo-01.png)
 
-Name your repository "planets" and then click "Create Repository".
+Name your repository "gapminder-analysis" and then click "Create Repository".
 
 Note: Since this repository will be connected to a local repository, it needs to be empty. Leave 
 "Initialize this repository with a README" unchecked, and keep "None" as options for both "Add 
@@ -48,14 +48,14 @@ information on how to configure your local repository:
 This effectively does the following on GitHub's servers:
 
 ~~~
-$ mkdir planets
-$ cd planets
+$ mkdir gapminder-analysis
+$ cd gapminder-analysis
 $ git init
 ~~~
 {: .language-bash}
 
 If you remember back to the earlier [lesson](../04-changes/) where we added and
-committed our earlier work on `mars.txt`, we had a diagram of the local repository
+committed our earlier work on `README.md`, we had a diagram of the local repository
 which looked like this:
 
 ![The Local Repository with Git Staging Area](../fig/git-staging-area.svg)
@@ -64,7 +64,7 @@ Now that we have two repositories, we need a diagram like this:
 
 ![Freshly-Made GitHub Repository](../fig/git-freshly-made-github-repo.svg)
 
-Note that our local repository still contains our earlier work on `mars.txt`, but the
+Note that our local repository still contains our earlier work, but the
 remote repository on GitHub appears empty as it doesn't contain any files yet.
 
 The next step is to connect the two repositories.  We do this by making the
@@ -74,7 +74,7 @@ identify it:
 
 ![Where to Find Repository URL on GitHub](../fig/github-find-repo-string.png)
 
-Click on the 'HTTPS' link to change the [protocol]({{ page.root }}{% link reference.md %}#protocol) from SSH to HTTPS.
+If 'SSH' is selected, click on the 'HTTPS' link to change the [protocol]({{ page.root }}{% link reference.md %}#protocol) from SSH to HTTPS.
 
 > ## HTTPS vs. SSH
 >
@@ -87,18 +87,16 @@ Click on the 'HTTPS' link to change the [protocol]({{ page.root }}{% link refere
 > (this one has a screencast).
 {: .callout}
 
-![Changing the Repository URL on GitHub](../fig/github-change-repo-string.png)
-
-Copy that URL from the browser, go into the local `planets` repository, and run
+Copy that URL from the browser, go into the local `gapminder-analysis` repository, and run
 this command:
 
 ~~~
-$ git remote add origin https://github.com/vlad/planets.git
+$ git remote add origin https://github.com/AnthonyOfSeattle/gapminder-analysis.git
 ~~~
 {: .language-bash}
 
 Make sure to use the URL for your repository rather than Vlad's: the only
-difference should be your username instead of `vlad`.
+difference should be your username instead of `AnthonyOfSeattle`.
 
 `origin` is a local name used to refer to the remote repository. It could be called
 anything, but `origin` is a convention that is often used by default in git
@@ -112,8 +110,8 @@ $ git remote -v
 {: .language-bash}
 
 ~~~
-origin   https://github.com/vlad/planets.git (push)
-origin   https://github.com/vlad/planets.git (fetch)
+origin	https://github.com/AnthonyOfSeattle/gapminder-analysis.git (fetch)
+origin	https://github.com/AnthonyOfSeattle/gapminder-analysis.git (push)
 ~~~
 {: .output}
 
@@ -129,14 +127,13 @@ $ git push origin master
 {: .language-bash}
 
 ~~~
-Enumerating objects: 16, done.
-Counting objects: 100% (16/16), done.
-Delta compression using up to 8 threads.
-Compressing objects: 100% (11/11), done.
-Writing objects: 100% (16/16), 1.45 KiB | 372.00 KiB/s, done.
-Total 16 (delta 2), reused 0 (delta 0)
-remote: Resolving deltas: 100% (2/2), done.
-To https://github.com/vlad/planets.git
+Counting objects: 26, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (20/20), done.
+Writing objects: 100% (26/26), 266.65 KiB | 11.11 MiB/s, done.
+Total 26 (delta 5), reused 0 (delta 0)
+remote: Resolving deltas: 100% (5/5), done.
+To https://github.com/AnthonyOfSeattle/gapminder-analysis.git
  * [new branch]      master -> master
 ~~~
 {: .output}
@@ -207,9 +204,9 @@ $ git pull origin master
 {: .language-bash}
 
 ~~~
-From https://github.com/vlad/planets
+From https://github.com/AnthonyOfSeattle/gapminder-analysis
  * branch            master     -> FETCH_HEAD
-Already up-to-date.
+Already up to date.
 ~~~
 {: .output}
 
@@ -219,7 +216,7 @@ GitHub, though, this command would download them to our local repository.
 
 > ## GitHub GUI
 >
-> Browse to your `planets` repository on GitHub.
+> Browse to your `gapminder-analysis` repository on GitHub.
 > Under the Code tab, find and click on the text that says "XX commits" (where "XX" is some number).
 > Hover over, and click on, the three buttons to the right of each commit.
 > What information can you gather/explore from these buttons?
@@ -280,52 +277,3 @@ GitHub, though, this command would download them to our local repository.
 > {: .solution}
 {: .challenge}
 
-> ## GitHub License and README files
->
-> In this section we learned about creating a remote repository on GitHub, but when you initialized 
-> your GitHub repo, you didn't add a README.md or a license file. If you had, what do you think 
-> would have happened when you tried to link your local and remote repositories?
->
-> > ## Solution
-> > In this case, we'd see a merge conflict due to unrelated histories. When GitHub creates a 
-> > README.md file, it performs a commit in the remote repository. When you try to pull the remote 
-> > repository to your local repository, Git detects that they have histories that do not share a 
-> > common origin and refuses to merge.
-> > ~~~
-> > $ git pull origin master
-> > ~~~
-> > {: .language-bash}
-> >
-> > ~~~
-> > warning: no common commits
-> > remote: Enumerating objects: 3, done.
-> > remote: Counting objects: 100% (3/3), done.
-> > remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
-> > Unpacking objects: 100% (3/3), done.
-> > From https://github.com/vlad/planets
-> >  * branch            master     -> FETCH_HEAD
-> >  * [new branch]      master     -> origin/master
-> > fatal: refusing to merge unrelated histories
-> > ~~~
-> > {: .output}
-> >
-> > You can force git to merge the two repositories with the option `--allow-unrelated-histories`. 
-> > Be careful when you use this option and carefully examine the contents of local and remote 
-> > repositories before merging.
-> > ~~~
-> > $ git pull --allow-unrelated-histories origin master
-> > ~~~
-> > {: .language-bash}
-> >
-> > ~~~
-> > From https://github.com/vlad/planets
-> >  * branch            master     -> FETCH_HEAD
-> > Merge made by the 'recursive' strategy.
-> > README.md | 1 +
-> > 1 file changed, 1 insertion(+)
-> > create mode 100644 README.md
-> > ~~~
-> > {: .output}
-> >
-> {: .solution}
-{: .challenge}

@@ -19,28 +19,30 @@ keypoints:
 ---
 
 First let's make sure we're still in the right directory.
-You should be in the `planets` directory.
+You should be in the `gapminder-analysis` directory.
 
 ~~~
-$ cd ~/Desktop/planets
+$ cd ~/Desktop/gapminder-analysis
 ~~~
 {: .language-bash}
 
-Let's create a file called `mars.txt` that contains some notes
-about the Red Planet's suitability as a base.
+Let's create a file called `README.md` that contains some notes
+about our project.
 We'll use `nano` to edit the file;
 you can use whatever editor you like.
 In particular, this does not have to be the `core.editor` you set globally earlier. But remember, the bash command to create or edit a new file will depend on the editor you choose (it might not be `nano`). For a refresher on text editors, check out ["Which Editor?"](https://swcarpentry.github.io/shell-novice/03-create/) in [The Unix Shell](https://swcarpentry.github.io/shell-novice/) lesson.
 
 ~~~
-$ nano mars.txt
+$ nano README.md
 ~~~
 {: .language-bash}
 
-Type the text below into the `mars.txt` file:
+Type the text below into the `README.md` file:
 
 ~~~
-Cold and dry, but everything is my favorite color
+# Gapminder Analysis
+
+This repository contains analyses of life expectancy vs GDP.
 ~~~
 
 Let's first verify that the file was properly created by running the list command (`ls`):
@@ -52,20 +54,22 @@ $ ls
 {: .language-bash}
 
 ~~~
-mars.txt
+data  functions  gapminder-analysis.rmd  README.md  results
 ~~~
 {: .output}
 
 
-`mars.txt` contains a single line, which we can see by running:
+`README.md` contains 2 lines, which we can see by running:
 
 ~~~
-$ cat mars.txt
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-Cold and dry, but everything is my favorite color
+# Gapminder Analysis
+
+This repository contains analyses of life expectancy vs GDP.
 ~~~
 {: .output}
 
@@ -80,12 +84,17 @@ $ git status
 ~~~
 On branch master
 
-Initial commit
+No commits yet
 
 Untracked files:
-   (use "git add <file>..." to include in what will be committed)
+  (use "git add <file>..." to include in what will be committed)
 
-	mars.txt
+	README.md
+	data/
+	functions/
+	gapminder-analysis.rmd
+	results/
+
 nothing added to commit but untracked files present (use "git add" to track)
 ~~~
 {: .output}
@@ -95,7 +104,7 @@ that Git isn't keeping track of.
 We can tell Git to track a file using `git add`:
 
 ~~~
-$ git add mars.txt
+$ git add README.md
 ~~~
 {: .language-bash}
 
@@ -109,30 +118,38 @@ $ git status
 ~~~
 On branch master
 
-Initial commit
+No commits yet
 
 Changes to be committed:
   (use "git rm --cached <file>..." to unstage)
 
-	new file:   mars.txt
+	new file:   README.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	data/
+	functions/
+	gapminder-analysis.rmd
+	results/
 
 ~~~
 {: .output}
 
-Git now knows that it's supposed to keep track of `mars.txt`,
+Git now knows that it's supposed to keep track of `README.md`,
 but it hasn't recorded these changes as a commit yet.
 To get it to do that,
 we need to run one more command:
 
 ~~~
-$ git commit -m "Start notes on Mars as a base"
+$ git commit -m "Start notebook on life expectancy vs gdp"
 ~~~
 {: .language-bash}
 
 ~~~
-[master (root-commit) f22b25e] Start notes on Mars as a base
- 1 file changed, 1 insertion(+)
- create mode 100644 mars.txt
+[master (root-commit) 2e8b51d] Start notebook on life expectancy vs gdp
+ 1 file changed, 3 insertions(+)
+ create mode 100644 README.md
 ~~~
 {: .output}
 
@@ -151,6 +168,46 @@ so that we can write a longer message.
 [Good commit messages][commit-messages] start with a brief (<50 characters) statement about the
 changes made in the commit. Generally, the message should complete the sentence "If applied, this commit will" <commit message here>.
 If you want to go into more detail, add a blank line between the summary line and your additional notes. Use this additional space to explain why you made changes and/or what their impact will be.
+
+We can add the rest of the files in our `gapminder-analysis` directory using the `*` wildcard.
+
+~~~
+$ git add *
+$ git status
+~~~
+{: .language-bash}
+
+~~~
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	new file:   data/.Rhistory
+	new file:   data/gapminder_data.csv
+	new file:   functions/functions-lesson.R
+	new file:   gapminder-analysis.rmd
+	new file:   results/lifeExp.png
+
+~~~
+{:.output}
+
+And we can store these changes with a second git commit
+
+~~~
+$ git commit -m "Add initial results of analyses"
+~~~
+{: .language-bash}
+
+~~~
+[master 8c4e418] Add initial results of analyses
+ 5 files changed, 1901 insertions(+)
+ create mode 100644 data/.Rhistory
+ create mode 100644 data/gapminder_data.csv
+ create mode 100644 functions/functions-lesson.R
+ create mode 100644 gapminder-analysis.rmd
+ create mode 100644 results/lifeExp.png
+~~~
+{: .output}
 
 If we run `git status` now:
 
@@ -175,11 +232,17 @@ $ git log
 {: .language-bash}
 
 ~~~
-commit f22b25e3233b4645dabd0d81e651fe074bd8e73b
-Author: Vlad Dracula <vlad@tran.sylvan.ia>
-Date:   Thu Aug 22 09:51:46 2013 -0400
+commit 8c4e4187e500d158312f29683ebb2fd31d326e9a (HEAD -> master)
+Author: Anthony Valente <valenta4@uw.edu>
+Date:   Sat Jan 11 16:40:28 2020 -0800
 
-    Start notes on Mars as a base
+    Add initial results of analyses
+
+commit 2e8b51d3bf9679bc23341f1d8d8fd003b1a8d176
+Author: Anthony Valente <valenta4@uw.edu>
+Date:   Sat Jan 11 16:30:59 2020 -0800
+
+    Start notebook on life expectancy vs gdp
 ~~~
 {: .output}
 
@@ -194,28 +257,34 @@ and the log message Git was given when the commit was created.
 
 > ## Where Are My Changes?
 >
-> If we run `ls` at this point, we will still see just one file called `mars.txt`.
-> That's because Git saves information about files' history
+> Git saves information about files' history
 > in the special `.git` directory mentioned earlier
 > so that our filesystem doesn't become cluttered
 > (and so that we can't accidentally edit or delete an old version).
 {: .callout}
 
-Now suppose Dracula adds more information to the file.
+Now suppose we want to add more information to the README.md file.
 (Again, we'll edit with `nano` and then `cat` the file to show its contents;
 you may use a different editor, and don't need to `cat`.)
 
 ~~~
-$ nano mars.txt
-$ cat mars.txt
+$ nano README.md
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
+# Gapminder Analysis
+
+**Author:** Anthony Valente
+**Depends:** ggplot2, dplyr
+
+This repository contains analyses of life expectancy vs GDP.
 ~~~
 {: .output}
+
+The `**` notation with make the "Author" and "Depends" keywords
+appear in bold when the markdown file is rendered in a browser.
 
 When we run `git status` now,
 it tells us that a file it already knows about has been modified:
@@ -231,7 +300,7 @@ Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git checkout -- <file>..." to discard changes in working directory)
 
-	modified:   mars.txt
+	modified:   README.md
 
 no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
@@ -254,13 +323,17 @@ $ git diff
 {: .language-bash}
 
 ~~~
-diff --git a/mars.txt b/mars.txt
-index df0654a..315bf3a 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1 +1,2 @@
- Cold and dry, but everything is my favorite color
-+The two moons may be a problem for Wolfman
+diff --git a/README.md b/README.md
+index fc323d1..58b6dcf 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,6 @@
+ # Gapminder Analysis
+ 
++**Author:** Anthony Valente
++**Depends:** ggplot2, dplyr
++
+ This repository contains analyses of life expectancy vs GDP.
 ~~~
 {: .output}
 
@@ -273,7 +346,7 @@ If we break it down into pieces:
     comparing the old and new versions of the file.
 2.  The second line tells exactly which versions of the file
     Git is comparing;
-    `df0654a` and `315bf3a` are unique computer-generated labels for those versions.
+    `fc323d1` and `58b6dcf` are unique computer-generated labels for those versions.
 3.  The third and fourth lines once again show the name of the file being changed.
 4.  The remaining lines are the most interesting, they show us the actual differences
     and the lines on which they occur.
@@ -283,7 +356,7 @@ If we break it down into pieces:
 After reviewing our change, it's time to commit it:
 
 ~~~
-$ git commit -m "Add concerns about effects of Mars' moons on Wolfman"
+$ git commit -m "Add dependency statement and authorship"
 $ git status
 ~~~
 {: .language-bash}
@@ -294,7 +367,7 @@ Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git checkout -- <file>..." to discard changes in working directory)
 
-	modified:   mars.txt
+	modified:   README.md
 
 no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
@@ -305,14 +378,14 @@ Git won't commit because we didn't use `git add` first.
 Let's fix that:
 
 ~~~
-$ git add mars.txt
-$ git commit -m "Add concerns about effects of Mars' moons on Wolfman"
+$ git add README.md
+$ git commit -m "Add dependency statement and authorship"
+$ git status
 ~~~
 {: .language-bash}
-
 ~~~
-[master 34961b1] Add concerns about effects of Mars' moons on Wolfman
- 1 file changed, 1 insertion(+)
+[master 6375275] Add dependency statement and authorship
+ 1 file changed, 3 insertions(+)
 ~~~
 {: .output}
 
@@ -362,15 +435,19 @@ First,
 we'll add another line to the file:
 
 ~~~
-$ nano mars.txt
-$ cat mars.txt
+$ nano README.md
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
+# Gapminder Analysis
+
+**Author:** Anthony Valente
+**Depends:** ggplot2, dplyr
+**Start Date:** 2020-01-28
+
+This repository contains analyses of life expectancy vs GDP.
 ~~~
 {: .output}
 
@@ -380,14 +457,17 @@ $ git diff
 {: .language-bash}
 
 ~~~
-diff --git a/mars.txt b/mars.txt
-index 315bf3a..b36abfd 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1,2 +1,3 @@
- Cold and dry, but everything is my favorite color
- The two moons may be a problem for Wolfman
-+But the Mummy will appreciate the lack of humidity
+diff --git a/README.md b/README.md
+index 58b6dcf..78fb607 100644
+--- a/README.md
++++ b/README.md
+@@ -2,5 +2,6 @@
+ 
+ **Author:** Anthony Valente
+ **Depends:** ggplot2, dplyr
++**Start Date:** 2020-01-28
+ 
+ This repository contains analyses of life expectancy vs GDP.
 ~~~
 {: .output}
 
@@ -398,7 +478,7 @@ Now let's put that change in the staging area
 and see what `git diff` reports:
 
 ~~~
-$ git add mars.txt
+$ git add README.md
 $ git diff
 ~~~
 {: .language-bash}
@@ -416,14 +496,17 @@ $ git diff --staged
 {: .language-bash}
 
 ~~~
-diff --git a/mars.txt b/mars.txt
-index 315bf3a..b36abfd 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1,2 +1,3 @@
- Cold and dry, but everything is my favorite color
- The two moons may be a problem for Wolfman
-+But the Mummy will appreciate the lack of humidity
+diff --git a/README.md b/README.md
+index 58b6dcf..78fb607 100644
+--- a/README.md
++++ b/README.md
+@@ -2,5 +2,6 @@
+ 
+ **Author:** Anthony Valente
+ **Depends:** ggplot2, dplyr
++**Start Date:** 2020-01-28
+ 
+ This repository contains analyses of life expectancy vs GDP.
 ~~~
 {: .output}
 
@@ -433,12 +516,12 @@ and what's in the staging area.
 Let's save our changes:
 
 ~~~
-$ git commit -m "Discuss concerns about Mars' climate for Mummy"
+$ git commit -m "Add start date of analysis"
 ~~~
 {: .language-bash}
 
 ~~~
-[master 005937f] Discuss concerns about Mars' climate for Mummy
+[master 048b4ab] Add start date of analysis
  1 file changed, 1 insertion(+)
 ~~~
 {: .output}
@@ -464,23 +547,29 @@ $ git log
 {: .language-bash}
 
 ~~~
-commit 005937fbe2a98fb83f0ade869025dc2636b4dad5
-Author: Vlad Dracula <vlad@tran.sylvan.ia>
-Date:   Thu Aug 22 10:14:07 2013 -0400
+commit 048b4ab765e0ca4ea74223a0414bd50e903df91f (HEAD -> master)
+Author: Anthony Valente <valenta4@uw.edu>
+Date:   Mon Jan 13 20:43:34 2020 -0800
 
-    Discuss concerns about Mars' climate for Mummy
+    Add start date of analysis
 
-commit 34961b159c27df3b475cfe4415d94a6d1fcd064d
-Author: Vlad Dracula <vlad@tran.sylvan.ia>
-Date:   Thu Aug 22 10:07:21 2013 -0400
+commit 6375275d8b1b48f2b4bf540c747aa237fa4c80f1
+Author: Anthony Valente <valenta4@uw.edu>
+Date:   Mon Jan 13 20:35:50 2020 -0800
 
-    Add concerns about effects of Mars' moons on Wolfman
+    Add dependency statement and authorship
 
-commit f22b25e3233b4645dabd0d81e651fe074bd8e73b
-Author: Vlad Dracula <vlad@tran.sylvan.ia>
-Date:   Thu Aug 22 09:51:46 2013 -0400
+commit 8c4e4187e500d158312f29683ebb2fd31d326e9a
+Author: Anthony Valente <valenta4@uw.edu>
+Date:   Sat Jan 11 16:40:28 2020 -0800
 
-    Start notes on Mars as a base
+    Add initial results of analyses
+
+commit 2e8b51d3bf9679bc23341f1d8d8fd003b1a8d176
+Author: Anthony Valente <valenta4@uw.edu>
+Date:   Sat Jan 11 16:30:59 2020 -0800
+
+    Start notebook on life expectancy vs gdp
 ~~~
 {: .output}
 
@@ -520,11 +609,11 @@ Date:   Thu Aug 22 09:51:46 2013 -0400
 > {: .language-bash}
 >
 > ~~~
-> commit 005937fbe2a98fb83f0ade869025dc2636b4dad5
-> Author: Vlad Dracula <vlad@tran.sylvan.ia>
-> Date:   Thu Aug 22 10:14:07 2013 -0400
->
->    Discuss concerns about Mars' climate for Mummy
+> commit 048b4ab765e0ca4ea74223a0414bd50e903df91f (HEAD -> master)
+> Author: Anthony Valente <valenta4@uw.edu>
+> Date:   Mon Jan 13 20:43:34 2020 -0800
+> 
+>     Add start date of analysis
 > ~~~
 > {: .output}
 >
@@ -536,9 +625,10 @@ Date:   Thu Aug 22 09:51:46 2013 -0400
 > ~~~
 > {: .language-bash}
 > ~~~
-> 005937f Discuss concerns about Mars' climate for Mummy
-> 34961b1 Add concerns about effects of Mars' moons on Wolfman
-> f22b25e Start notes on Mars as a base
+> 048b4ab (HEAD -> master) Add start date of analysis
+> 6375275 Add dependency statement and authorship
+> 8c4e418 Add initial results of analyses
+> 2e8b51d Start notebook on life expectancy vs gdp
 > ~~~
 > {: .output}
 >
@@ -553,9 +643,10 @@ Date:   Thu Aug 22 09:51:46 2013 -0400
 > ~~~
 > {: .language-bash}
 > ~~~
-> * 005937f (HEAD -> master) Discuss concerns about Mars' climate for Mummy
-> * 34961b1 Add concerns about effects of Mars' moons on Wolfman
-> * f22b25e Start notes on Mars as a base
+> * 048b4ab (HEAD -> master) Add start date of analysis
+> * 6375275 Add dependency statement and authorship
+> * 8c4e418 Add initial results of analyses
+> * 2e8b51d Start notebook on life expectancy vs gdp
 > ~~~
 > {: .output}
 {: .callout}
@@ -568,14 +659,14 @@ Date:   Thu Aug 22 09:51:46 2013 -0400
 >    Try it for yourself:
 >
 >    ~~~
->    $ mkdir spaceships
+>    $ mkdir paper
 >    $ git status
->    $ git add spaceships
+>    $ git add paper
 >    $ git status
 >    ~~~
 >    {: .language-bash}
 >
->    Note, our newly created empty directory `spaceships` does not appear in
+>    Note, our newly created empty directory `paper` does not appear in
 >    the list of untracked files even if we explicitly add it (_via_ `git add`) to our
 >    repository. This is the reason why you will sometimes see `.gitkeep` files
 >    in otherwise empty directories. Unlike `.gitignore`, these files are not special
@@ -593,9 +684,9 @@ Date:   Thu Aug 22 09:51:46 2013 -0400
 >    Try it for yourself:
 >
 >    ~~~
->    $ touch spaceships/apollo-11 spaceships/sputnik-1
+>    $ touch paper/gapminder-paper.tex
 >    $ git status
->    $ git add spaceships
+>    $ git add paper
 >    $ git status
 >    ~~~
 >    {: .language-bash}
@@ -603,7 +694,7 @@ Date:   Thu Aug 22 09:51:46 2013 -0400
 >    Before moving on, we will commit these changes.
 >
 >    ~~~
->    $ git commit -m "Add some initial thoughts on spaceships"
+>    $ git commit -m "Add tex file for paper"
 >    ~~~
 >    {: .language-bash}
 >

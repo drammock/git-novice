@@ -20,21 +20,25 @@ As we saw in the previous lesson, we can refer to commits by their
 identifiers.  You can refer to the _most recent commit_ of the working
 directory by using the identifier `HEAD`.
 
-We've been adding one line at a time to `mars.txt`, so it's easy to track our
+We've been adding one line at a time to `README.md`, so it's easy to track our
 progress by looking, so let's do that using our `HEAD`s.  Before we start,
-let's make a change to `mars.txt`, adding yet another line.
+let's make a change to `README.md`, and make our description slightly more specific.
 
 ~~~
-$ nano mars.txt
-$ cat mars.txt
+$ nano README.md
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
-An ill-considered change
+# Gapminder Analysis
+
+**Author:** Anthony Valente
+**Depends:** ggplot2, dplyr
+**Start Date:** 2020-01-28
+
+This repository contains analyses of life expectancy vs GDP. 
+I also explore the change in life expectancy with year.
 ~~~
 {: .output}
 
@@ -46,15 +50,15 @@ $ git diff HEAD mars.txt
 {: .language-bash}
 
 ~~~
-diff --git a/mars.txt b/mars.txt
-index b36abfd..0848c8d 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1,3 +1,4 @@
- Cold and dry, but everything is my favorite color
- The two moons may be a problem for Wolfman
- But the Mummy will appreciate the lack of humidity
-+An ill-considered change.
+diff --git a/README.md b/README.md
+index 78fb607..7fa6160 100644
+--- a/README.md
++++ b/README.md
+@@ -5,3 +5,4 @@
+ **Start Date:** 2020-01-28
+ 
+ This repository contains analyses of life expectancy vs GDP.
++I also explore the change in life expectancy with year.
 ~~~
 {: .output}
 
@@ -65,7 +69,7 @@ that by adding `~1`
 to refer to the commit one before `HEAD`.
 
 ~~~
-$ git diff HEAD~1 mars.txt
+$ git diff HEAD~1 README.md
 ~~~
 {: .language-bash}
 
@@ -74,20 +78,23 @@ again, but with the notation `HEAD~1`, `HEAD~2`, and so on, to refer to them:
 
 
 ~~~
-$ git diff HEAD~3 mars.txt
+$ git diff HEAD~2 README.md
 ~~~
 {: .language-bash}
 
 ~~~
-diff --git a/mars.txt b/mars.txt
-index df0654a..b36abfd 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1 +1,4 @@
- Cold and dry, but everything is my favorite color
-+The two moons may be a problem for Wolfman
-+But the Mummy will appreciate the lack of humidity
-+An ill-considered change
+diff --git a/README.md b/README.md
+index 58b6dcf..7fa6160 100644
+--- a/README.md
++++ b/README.md
+@@ -2,5 +2,7 @@
+ 
+ **Author:** Anthony Valente
+ **Depends:** ggplot2, dplyr
++**Start Date:** 2020-01-28
+ 
+ This repository contains analyses of life expectancy vs GDP.
++I also explore the change in life expectancy with year.
 ~~~
 {: .output}
 
@@ -96,24 +103,28 @@ well as the commit message, rather than the _differences_ between a commit and o
 working directory that we see by using `git diff`.
 
 ~~~
-$ git show HEAD~3 mars.txt
+$ git show HEAD~2 README.md
 ~~~
 {: .language-bash}
 
 ~~~
-commit f22b25e3233b4645dabd0d81e651fe074bd8e73b
-Author: Vlad Dracula <vlad@tran.sylvan.ia>
-Date:   Thu Aug 22 09:51:46 2013 -0400
+commit 6375275d8b1b48f2b4bf540c747aa237fa4c80f1
+Author: Anthony Valente <valenta4@uw.edu>
+Date:   Mon Jan 13 20:35:50 2020 -0800
 
-    Start notes on Mars as a base
+    Add dependency statement and authorship
 
-diff --git a/mars.txt b/mars.txt
-new file mode 100644
-index 0000000..df0654a
---- /dev/null
-+++ b/mars.txt
-@@ -0,0 +1 @@
-+Cold and dry, but everything is my favorite color
+diff --git a/README.md b/README.md
+index fc323d1..58b6dcf 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,6 @@
+ # Gapminder Analysis
+ 
++**Author:** Anthony Valente
++**Depends:** ggplot2, dplyr
++
+ This repository contains analyses of life expectancy vs GDP.
 ~~~
 {: .output}
 
@@ -133,24 +144,28 @@ and "unique" really does mean unique:
 every change to any set of files on any computer
 has a unique 40-character identifier.
 Our first commit was given the ID
-`f22b25e3233b4645dabd0d81e651fe074bd8e73b`,
+`2e8b51d3bf9679bc23341f1d8d8fd003b1a8d176`,
 so let's try this:
 
 ~~~
-$ git diff f22b25e3233b4645dabd0d81e651fe074bd8e73b mars.txt
+$ git diff 2e8b51d3bf9679bc23341f1d8d8fd003b1a8d176 README.md
 ~~~
 {: .language-bash}
 
 ~~~
-diff --git a/mars.txt b/mars.txt
-index df0654a..93a3e13 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1 +1,4 @@
- Cold and dry, but everything is my favorite color
-+The two moons may be a problem for Wolfman
-+But the Mummy will appreciate the lack of humidity
-+An ill-considered change
+diff --git a/README.md b/README.md
+index fc323d1..7fa6160 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,8 @@
+ # Gapminder Analysis
+ 
++**Author:** Anthony Valente
++**Depends:** ggplot2, dplyr
++**Start Date:** 2020-01-28
++
+ This repository contains analyses of life expectancy vs GDP.
++I also explore the change in life expectancy with year.
 ~~~
 {: .output}
 
@@ -159,20 +174,24 @@ but typing out random 40-character strings is annoying,
 so Git lets us use just the first few characters (typically seven for normal size projects):
 
 ~~~
-$ git diff f22b25e mars.txt
+$ git diff 2e8b51d README.md
 ~~~
 {: .language-bash}
 
 ~~~
-diff --git a/mars.txt b/mars.txt
-index df0654a..93a3e13 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1 +1,4 @@
- Cold and dry, but everything is my favorite color
-+The two moons may be a problem for Wolfman
-+But the Mummy will appreciate the lack of humidity
-+An ill-considered change
+diff --git a/README.md b/README.md
+index fc323d1..7fa6160 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,8 @@
+ # Gapminder Analysis
+ 
++**Author:** Anthony Valente
++**Depends:** ggplot2, dplyr
++**Start Date:** 2020-01-28
++
+ This repository contains analyses of life expectancy vs GDP.
++I also explore the change in life expectancy with year.
 ~~~
 {: .output}
 
@@ -180,7 +199,7 @@ All right! So
 we can save changes to files and see what we've changed—now how
 can we restore older versions of things?
 Let's suppose we change our mind about the last update to
-`mars.txt` (the "ill-considered change").
+`README.md` (our update to the description).
 
 `git status` now tells us that the file has been changed,
 but those changes haven't been staged:
@@ -196,7 +215,7 @@ Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git checkout -- <file>..." to discard changes in working directory)
 
-    modified:   mars.txt
+	modified:   README.md
 
 no changes added to commit (use "git add" and/or "git commit -a")
 ~~~
@@ -206,15 +225,19 @@ We can put things back the way they were
 by using `git checkout`:
 
 ~~~
-$ git checkout HEAD mars.txt
-$ cat mars.txt
+$ git checkout HEAD README.md
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
+# Gapminder Analysis
+
+**Author:** Anthony Valente
+**Depends:** ggplot2, dplyr
+**Start Date:** 2020-01-28
+
+This repository contains analyses of life expectancy vs GDP.
 ~~~
 {: .output}
 
@@ -227,17 +250,19 @@ If we want to go back even further,
 we can use a commit identifier instead:
 
 ~~~
-$ git checkout f22b25e mars.txt
+$ git checkout 2e8b51d README.md
 ~~~
 {: .language-bash}
 
 ~~~
-$ cat mars.txt
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-Cold and dry, but everything is my favorite color
+# Gapminder Analysis
+
+This repository contains analyses of life expectancy vs GDP.
 ~~~
 {: .output}
 
@@ -251,7 +276,7 @@ On branch master
 Changes to be committed:
   (use "git reset HEAD <file>..." to unstage)
 
-    modified:   mars.txt
+	modified:   README.md
 
 ~~~
 {: .output}
@@ -261,7 +286,7 @@ Again, we can put things back the way they were
 by using `git checkout`:
 
 ~~~
-$ git checkout HEAD mars.txt
+$ git checkout HEAD README.md
 ~~~
 {: .language-bash}
 
@@ -270,21 +295,21 @@ $ git checkout HEAD mars.txt
 > Above we used
 >
 > ~~~
-> $ git checkout f22b25e mars.txt
+> $ git checkout 2e8b51d README.md
 > ~~~
 > {: .language-bash}
 >
-> to revert `mars.txt` to its state after the commit `f22b25e`. But be careful! 
+> to revert `mars.txt` to its state after the commit `2e8b51d`. But be careful! 
 > The command `checkout` has other important functionalities and Git will misunderstand
 > your intentions if you are not accurate with the typing. For example, 
 > if you forget `mars.txt` in the previous command.
 >
 > ~~~
-> $ git checkout f22b25e
+> $ git checkout 2e8b51d
 > ~~~
 > {: .language-bash}
 > ~~~
-> Note: checking out 'f22b25e'.
+> Note: checking out '2e8b51d'.
 >
 > You are in 'detached HEAD' state. You can look around, make experimental
 > changes and commit them, and you can discard any commits you make in this
@@ -295,7 +320,7 @@ $ git checkout HEAD mars.txt
 >
 >  git checkout -b <new-branch-name>
 >
-> HEAD is now at f22b25e Start notes on Mars as a base
+> HEAD is now at 2e8b51d Start notebook on life expectancy vs gdp
 > ~~~
 > {: .error}
 >
@@ -310,7 +335,7 @@ we must use the commit number that identifies the state of the repository
 A common mistake is to use the number of
 the commit in which we made the change we're trying to discard.
 In the example below, we want to retrieve the state from before the most
-recent commit (`HEAD~1`), which is commit `f22b25e`:
+recent commit (`HEAD~1`), which is commit `2e8b51d`:
 
 ![Git Checkout](../fig/git-checkout.svg)
 

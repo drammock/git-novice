@@ -40,38 +40,47 @@ Next, the Collaborator needs to download a copy of the Owner's repository to her
 her `Desktop` folder, the Collaborator enters:
 
 ~~~
-$ git clone https://github.com/vlad/planets.git ~/Desktop/vlad-planets
+$ git clone https://github.com/AnthonyOfSeattle/gapminder-analysis.git gapminder-analysis-colab
 ~~~
 {: .language-bash}
 
-Replace 'vlad' with the Owner's username.
+Replace 'AnthonyOfSeattle' with the Owner's username.
 
 ![After Creating Clone of Repository](../fig/github-collaboration.svg)
 
-The Collaborator can now make a change in her clone of the Owner's repository,
+The Collaborator can now make a change in their clone of the Owner's repository,
 exactly the same way as we've been doing before:
 
 ~~~
-$ cd ~/Desktop/vlad-planets
-$ nano pluto.txt
-$ cat pluto.txt
+$ cd gapminder-analysis-colab
+$ nano README.md
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-It is so a planet!
+--- a/README.md
++++ b/README.md
+@@ -1,6 +1,6 @@
+ # Gapminder Analysis
+ 
+-**Author:** Anthony Valente
++**Authors:** Anthony Valente, Daniel McCloy
+ **Depends:** ggplot2, dplyr
+ **Start Date:** 2020-01-28
+
 ~~~
 {: .output}
 
 ~~~
-$ git add pluto.txt
-$ git commit -m "Add notes about Pluto"
+$ git add README.md
+$ git commit -m "Add coauthor"
 ~~~
 {: .language-bash}
 
 ~~~
- 1 file changed, 1 insertion(+)
- create mode 100644 pluto.txt
+[master 4b45f39] Add coauthor
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 ~~~
 {: .output}
 
@@ -83,14 +92,14 @@ $ git push origin master
 {: .language-bash}
 
 ~~~
-Enumerating objects: 4, done.
-Counting objects: 4, done.
+Counting objects: 3, done.
 Delta compression using up to 4 threads.
-Compressing objects: 100% (2/2), done.
-Writing objects: 100% (3/3), 306 bytes, done.
-Total 3 (delta 0), reused 0 (delta 0)
-To https://github.com/vlad/planets.git
-   9272da5..29aba7c  master -> master
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 301 bytes | 301.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/AnthonyOfSeattle/gapminder-analysis.git
+   4bfb2ab..4b45f39  master -> master
 ~~~
 {: .output}
 
@@ -142,19 +151,18 @@ $ git pull origin master
 {: .language-bash}
 
 ~~~
-remote: Enumerating objects: 4, done.
-remote: Counting objects: 100% (4/4), done.
-remote: Compressing objects: 100% (2/2), done.
-remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (1/1), done.
+remote: Total 3 (delta 2), reused 3 (delta 2), pack-reused 0
 Unpacking objects: 100% (3/3), done.
-From https://github.com/vlad/planets
+From https://github.com/AnthonyOfSeattle/gapminder-analysis
  * branch            master     -> FETCH_HEAD
-   9272da5..29aba7c  master     -> origin/master
-Updating 9272da5..29aba7c
+   4bfb2ab..4b45f39  master     -> origin/master
+Updating 4bfb2ab..4b45f39
 Fast-forward
- pluto.txt | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 pluto.txt
+ README.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 ~~~
 {: .output}
 

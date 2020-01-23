@@ -493,61 +493,10 @@ moving backward and forward in time becomes much easier.
 > {: .solution}
 {: .challenge}
 
-> ## Checking Understanding of `git diff`
->
-> Consider this command: `git diff HEAD~9 mars.txt`. What do you predict this command
-> will do if you execute it? What happens when you do execute it? Why?
->
-> Try another command, `git diff [ID] mars.txt`, where [ID] is replaced with
-> the unique identifier for your most recent commit. What do you think will happen,
-> and what does happen?
-{: .challenge}
-
 > ## Getting Rid of Staged Changes
 >
 > `git checkout` can be used to restore a previous commit when unstaged changes have
 > been made, but will it also work for changes that have been staged but not committed?
-> Make a change to `mars.txt`, add that change, and use `git checkout` to see if
+> Make a change to `README.md`, add that change, and use `git checkout` to see if
 > you can remove your change.
-{: .challenge}
-
-> ## Explore and Summarize Histories
->
-> Exploring history is an important part of Git, and often it is a challenge to find
-> the right commit ID, especially if the commit is from several months ago.
->
-> Imagine the `planets` project has more than 50 files.
-> You would like to find a commit that modifies some specific text in `mars.txt`.
-> When you type `git log`, a very long list appeared.
-> How can you narrow down the search?
->
-> Recall that the `git diff` command allows us to explore one specific file,
-> e.g., `git diff mars.txt`. We can apply a similar idea here.
->
-> ~~~
-> $ git log mars.txt
-> ~~~
-> {: .language-bash}
->
-> Unfortunately some of these commit messages are very ambiguous, e.g., `update files`.
-> How can you search through these files?
->
-> Both `git diff` and `git log` are very useful and they summarize a different part of the history 
-> for you.
-> Is it possible to combine both? Let's try the following:
->
-> ~~~
-> $ git log --patch mars.txt
-> ~~~
-> {: .language-bash}
->
-> You should get a long list of output, and you should be able to see both commit messages and 
-> the difference between each commit.
->
-> Question: What does the following command do?
->
-> ~~~
-> $ git log --patch HEAD~9 *.txt
-> ~~~
-> {: .language-bash}
 {: .challenge}

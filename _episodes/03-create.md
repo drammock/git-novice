@@ -99,32 +99,32 @@ Git recognizes that there are files and folders within the `gapminder-analysis` 
 
 > ## Places to Create Git Repositories
 >
-> Along with tracking information about planets (the project we have already created), 
-> Dracula would also like to track information about moons.
-> Despite Wolfman's concerns, Dracula creates a `moons` project inside his `planets` 
+> Along with tracking information about the gapminder dataset (the project we have already created), 
+> Your labmate would also like to track census data from around the world.
+> Despite your concerns, your labmate creates a `census` project inside his `gapminder-analysis` 
 > project with the following sequence of commands:
 >
 > ~~~
-> $ cd ~/Desktop   # return to Desktop directory
-> $ cd planets     # go into planets directory, which is already a Git repository
-> $ ls -a          # ensure the .git subdirectory is still present in the planets directory
-> $ mkdir moons    # make a subdirectory planets/moons
-> $ cd moons       # go into moons subdirectory
-> $ git init       # make the moons subdirectory a Git repository
-> $ ls -a          # ensure the .git subdirectory is present indicating we have created a new Git repository
+> $ cd ~/Desktop              # return to Desktop directory
+> $ cd gapminder-analysis     # go into planets directory, which is already a Git repository
+> $ ls -a                     # ensure the .git subdirectory is still present in the planets directory
+> $ mkdir census              # make a subdirectory planets/moons
+> $ cd census                 # go into moons subdirectory
+> $ git init                  # make the moons subdirectory a Git repository
+> $ ls -a                     # ensure the .git subdirectory is present indicating we have created a new Git repository
 > ~~~
 > {: .language-bash}
 >
-> Is the `git init` command, run inside the `moons` subdirectory, required for 
-> tracking files stored in the `moons` subdirectory?
+> Is the `git init` command, run inside the `census` subdirectory, required for 
+> tracking files stored in the `census` subdirectory?
 > 
 > > ## Solution
 > >
-> > No. Dracula does not need to make the `moons` subdirectory a Git repository 
-> > because the `planets` repository will track all files, sub-directories, and 
-> > subdirectory files under the `planets` directory.  Thus, in order to track 
-> > all information about moons, Dracula only needed to add the `moons` subdirectory
-> > to the `planets` directory.
+> > No. Your labmate does not need to make the `census` subdirectory a Git repository 
+> > because the `gapminder-analysis` repository will track all files, sub-directories, and 
+> > subdirectory files under the `gapminder-analysis` directory.  Thus, in order to track 
+> > all information about moons, your labmate only needed to add the `census` subdirectory
+> > to the `gapminder-analysis` directory.
 > > 
 > > Additionally, Git repositories can interfere with each other if they are "nested":
 > > the outer repository will try to version-control
@@ -145,9 +145,9 @@ Git recognizes that there are files and folders within the `gapminder-analysis` 
 > {: .solution}
 {: .challenge}
 > ## Correcting `git init` Mistakes
-> Wolfman explains to Dracula how a nested repository is redundant and may cause confusion
-> down the road. Dracula would like to remove the nested repository. How can Dracula undo 
-> his last `git init` in the `moons` subdirectory?
+> You explain to your labmate how a nested repository is redundant and may cause confusion
+> down the road. Your labmate would like to remove the nested repository. How can they undo 
+> their last `git init` in the `census` subdirectory?
 >
 > > ## Solution -- USE WITH CAUTION!
 > >
@@ -162,11 +162,11 @@ Git recognizes that there are files and folders within the `gapminder-analysis` 
 > >
 > > ### Solution
 > > Git keeps all of its files in the `.git` directory.
-> > To recover from this little mistake, Dracula can just remove the `.git`
+> > To recover from this little mistake, your labmate can just remove the `.git`
 > > folder in the moons subdirectory by running the following command from inside the `planets` directory:
 > >
 > > ~~~
-> > $ rm -rf moons/.git
+> > $ rm -rf census/.git
 > > ~~~
 > > {: .language-bash}
 > >

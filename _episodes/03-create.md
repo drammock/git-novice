@@ -15,35 +15,16 @@ keypoints:
 Once Git is configured,
 we can start using it.
 
-We will continue with the story of Wolfman and Dracula who are investigating if it
-is possible to send a planetary lander to Mars. 
+We will continue with our analysis of the Gapminder dataset, where we have produced some interesting results.
 
-![motivatingexample](../fig/motivatingexample.png)
-[Werewolf vs dracula](https://www.deviantart.com/b-maze/art/Werewolf-vs-Dracula-124893530)
-by [b-maze](https://www.deviantart.com/b-maze) / [Deviant Art](https://www.deviantart.com/).
-[Mars](https://en.wikipedia.org/wiki/File:OSIRIS_Mars_true_color.jpg) by European Space Agency /
-[CC-BY-SA 3.0 IGO](https://creativecommons.org/licenses/by/3.0/deed.en).
-[Pluto](https://commons.wikimedia.org/wiki/File:PIA19873-Pluto-NewHorizons-FlyingPastImage-20150714-transparent.png) /
-Courtesy NASA/JPL-Caltech.
-[Mummy](https://commons.wikimedia.org/wiki/File:Mummy_icon_-_Noun_Project_4070.svg)
-&copy; Gilad Fried / [The Noun Project](https://thenounproject.com/) /
-[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en).
-[Moon](https://commons.wikimedia.org/wiki/File:Lune_ico.png)
-&copy; Luc Viatour / [https://lucnix.be](https://lucnix.be/) /
-[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.en).
-
-
-
-First, let's create a directory in `Desktop` folder for our work and then move into that directory:
+First, let's move into our `gapminder-analysis` directory:
 
 ~~~
-$ cd ~/Desktop
-$ mkdir planets
-$ cd planets
+$ cd ~/Desktop/gapminder-analysis
 ~~~
 {: .language-bash}
 
-Then we tell Git to make `planets` a [repository]({{ page.root }}{% link reference.md %}#repository)—a place where Git can store versions of our files:
+Then we tell Git to make `gapminder-analysis` a [repository]({{ page.root }}{% link reference.md %}#repository)—a place where Git can store versions of our files:
 
 ~~~
 $ git init
@@ -51,10 +32,10 @@ $ git init
 {: .language-bash}
 
 It is important to note that `git init` will create a repository that
-includes subdirectories and their files---there is no need to create
-separate repositories nested within the `planets` repository, whether
+includes subdirectories, like `functions`, and their files---there is no need to create
+separate repositories nested within the `gapminder-analysis` repository, whether
 subdirectories are present from the beginning or added later. Also, note
-that the creation of the `planets` directory and its initialization as a
+that the creation of the `gapminder-analysis` directory and its initialization as a
 repository are completely separate processes.
 
 If we use `ls` to show the directory's contents,
@@ -65,8 +46,13 @@ $ ls
 ~~~
 {: .language-bash}
 
+~~~
+data  functions  gapminder-analysis.rmd  results
+~~~
+{: .output}
+
 But if we add the `-a` flag to show everything,
-we can see that Git has created a hidden directory within `planets` called `.git`:
+we can see that Git has created a hidden directory within `gapminder-analysis` called `.git`:
 
 ~~~
 $ ls -a
@@ -74,7 +60,7 @@ $ ls -a
 {: .language-bash}
 
 ~~~
-.	..	.git
+.  ..  data  functions  gapminder-analysis.rmd  .git  results
 ~~~
 {: .output}
 
@@ -93,43 +79,52 @@ $ git status
 ~~~
 On branch master
 
-Initial commit
+No commits yet
 
-nothing to commit (create/copy files and use "git add" to track)
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	data/
+	functions/
+	gapminder-analysis.rmd
+	results/
+
+nothing added to commit but untracked files present (use "git add" to track)
 ~~~
 {: .output}
 
-If you are using a different version of `git`, the exact
-wording of the output might be slightly different.
+If you are using a different version of `git`, the exact wording of the output might be slightly different. 
+
+Git recognizes that there are files and folders within the `gapminder-analysis` which it could track, but it will not watch these files until we explicitely tell it too.
 
 > ## Places to Create Git Repositories
 >
-> Along with tracking information about planets (the project we have already created), 
-> Dracula would also like to track information about moons.
-> Despite Wolfman's concerns, Dracula creates a `moons` project inside his `planets` 
+> Along with tracking information about the gapminder dataset (the project we have already created), 
+> Your labmate would also like to track census data from around the world.
+> Despite your concerns, your labmate creates a `census` project inside his `gapminder-analysis` 
 > project with the following sequence of commands:
 >
 > ~~~
-> $ cd ~/Desktop   # return to Desktop directory
-> $ cd planets     # go into planets directory, which is already a Git repository
-> $ ls -a          # ensure the .git subdirectory is still present in the planets directory
-> $ mkdir moons    # make a subdirectory planets/moons
-> $ cd moons       # go into moons subdirectory
-> $ git init       # make the moons subdirectory a Git repository
-> $ ls -a          # ensure the .git subdirectory is present indicating we have created a new Git repository
+> $ cd ~/Desktop              # return to Desktop directory
+> $ cd gapminder-analysis     # go into planets directory, which is already a Git repository
+> $ ls -a                     # ensure the .git subdirectory is still present in the planets directory
+> $ mkdir census              # make a subdirectory planets/moons
+> $ cd census                 # go into moons subdirectory
+> $ git init                  # make the moons subdirectory a Git repository
+> $ ls -a                     # ensure the .git subdirectory is present indicating we have created a new Git repository
 > ~~~
 > {: .language-bash}
 >
-> Is the `git init` command, run inside the `moons` subdirectory, required for 
-> tracking files stored in the `moons` subdirectory?
+> Is the `git init` command, run inside the `census` subdirectory, required for 
+> tracking files stored in the `census` subdirectory?
 > 
 > > ## Solution
 > >
-> > No. Dracula does not need to make the `moons` subdirectory a Git repository 
-> > because the `planets` repository will track all files, sub-directories, and 
-> > subdirectory files under the `planets` directory.  Thus, in order to track 
-> > all information about moons, Dracula only needed to add the `moons` subdirectory
-> > to the `planets` directory.
+> > No. Your labmate does not need to make the `census` subdirectory a Git repository 
+> > because the `gapminder-analysis` repository will track all files, sub-directories, and 
+> > subdirectory files under the `gapminder-analysis` directory.  Thus, in order to track 
+> > all information about moons, your labmate only needed to add the `census` subdirectory
+> > to the `gapminder-analysis` directory.
 > > 
 > > Additionally, Git repositories can interfere with each other if they are "nested":
 > > the outer repository will try to version-control
@@ -150,9 +145,9 @@ wording of the output might be slightly different.
 > {: .solution}
 {: .challenge}
 > ## Correcting `git init` Mistakes
-> Wolfman explains to Dracula how a nested repository is redundant and may cause confusion
-> down the road. Dracula would like to remove the nested repository. How can Dracula undo 
-> his last `git init` in the `moons` subdirectory?
+> You explain to your labmate how a nested repository is redundant and may cause confusion
+> down the road. Your labmate would like to remove the nested repository. How can they undo 
+> their last `git init` in the `census` subdirectory?
 >
 > > ## Solution -- USE WITH CAUTION!
 > >
@@ -167,11 +162,11 @@ wording of the output might be slightly different.
 > >
 > > ### Solution
 > > Git keeps all of its files in the `.git` directory.
-> > To recover from this little mistake, Dracula can just remove the `.git`
+> > To recover from this little mistake, your labmate can just remove the `.git`
 > > folder in the moons subdirectory by running the following command from inside the `planets` directory:
 > >
 > > ~~~
-> > $ rm -rf moons/.git
+> > $ rm -rf census/.git
 > > ~~~
 > > {: .language-bash}
 > >

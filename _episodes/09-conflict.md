@@ -20,47 +20,56 @@ different changes to each copy.  Version control helps us manage these
 [resolve]({{ page.root }}{% link reference.md %}#resolve) overlapping changes.
 
 To see how we can resolve conflicts, we must first create one.  The file
-`mars.txt` currently looks like this in both partners' copies of our `planets`
+`README.md` currently looks like this in both partners' copies of our `gapminder-analysis`
 repository:
 
 ~~~
-$ cat mars.txt
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
+# Gapminder Analysis
+
+**Authors:** Anthony Valente, Daniel McCloy
+**Depends:** ggplot2, dplyr
+**Start Date:** 2020-01-28
+
+This repository contains analyses of life expectancy vs GDP.
 ~~~
 {: .output}
 
-Let's add a line to one partner's copy only:
+Let's add a line to one partner's copy only.
+We can add back in information about our specific interest:
 
 ~~~
-$ nano mars.txt
-$ cat mars.txt
+$ nano README.md
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
-This line added to Wolfman's copy
+# Gapminder Analysis
+
+**Authors:** Anthony Valente, Daniel McCloy
+**Depends:** ggplot2, dplyr
+**Start Date:** 2020-01-28
+
+This repository contains analyses of life expectancy vs GDP.
+We also explore the change in life expectancy with year.
 ~~~
 {: .output}
 
 and then push the change to GitHub:
 
 ~~~
-$ git add mars.txt
-$ git commit -m "Add a line in our home copy"
+$ git add README.md
+$ git commit -m "Update description of project goals"
 ~~~
 {: .language-bash}
 
 ~~~
-[master 5ae9631] Add a line in our home copy
+master cce9ddc] Update description of project goals
  1 file changed, 1 insertion(+)
 ~~~
 {: .output}
@@ -71,46 +80,51 @@ $ git push origin master
 {: .language-bash}
 
 ~~~
-Enumerating objects: 5, done.
-Counting objects: 100% (5/5), done.
-Delta compression using up to 8 threads
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
 Compressing objects: 100% (3/3), done.
-Writing objects: 100% (3/3), 331 bytes | 331.00 KiB/s, done.
+Writing objects: 100% (3/3), 358 bytes | 358.00 KiB/s, done.
 Total 3 (delta 2), reused 0 (delta 0)
 remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
-To https://github.com/vlad/planets.git
-   29aba7c..dabb4c8  master -> master
+To https://github.com/AnthonyOfSeattle/gapminder-analysis.git
+   4b45f39..cce9ddc  master -> master
 ~~~
 {: .output}
 
 Now let's have the other partner
 make a different change to their copy
-*without* updating from GitHub:
+*without* updating from GitHub.
+Maybe they are more interested in
+population growth:
 
 ~~~
-$ nano mars.txt
-$ cat mars.txt
+$ nano README.md
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
-We added a different line in the other copy
+# Gapminder Analysis
+
+**Authors:** Anthony Valente, Daniel McCloy
+**Depends:** ggplot2, dplyr
+**Start Date:** 2020-01-28
+
+This repository contains analyses of life expectancy vs GDP.
+We also explore the dynamics of population growth.
 ~~~
 {: .output}
 
 We can commit the change locally:
 
 ~~~
-$ git add mars.txt
-$ git commit -m "Add a line in my copy"
+$ git add README.md
+$ git commit -m "Add collaborator's specific goals"
 ~~~
 {: .language-bash}
 
 ~~~
-[master 07ebc69] Add a line in my copy
+[master 5027f9a] Add collaborator's specific goals
  1 file changed, 1 insertion(+)
 ~~~
 {: .output}
@@ -123,9 +137,9 @@ $ git push origin master
 {: .language-bash}
 
 ~~~
-To https://github.com/vlad/planets.git
+To https://github.com/AnthonyOfSeattle/gapminder-analysis.git
  ! [rejected]        master -> master (fetch first)
-error: failed to push some refs to 'https://github.com/vlad/planets.git'
+error: failed to push some refs to 'https://github.com/AnthonyOfSeattle/gapminder-analysis.git'
 hint: Updates were rejected because the remote contains work that you do
 hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
@@ -153,11 +167,11 @@ remote: Counting objects: 100% (5/5), done.
 remote: Compressing objects: 100% (1/1), done.
 remote: Total 3 (delta 2), reused 3 (delta 2), pack-reused 0
 Unpacking objects: 100% (3/3), done.
-From https://github.com/vlad/planets
+From https://github.com/AnthonyOfSeattle/gapminder-analysis
  * branch            master     -> FETCH_HEAD
-    29aba7c..dabb4c8  master     -> origin/master
-Auto-merging mars.txt
-CONFLICT (content): Merge conflict in mars.txt
+   4b45f39..cce9ddc  master     -> origin/master
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
 Automatic merge failed; fix conflicts and then commit the result.
 ~~~
 {: .output}
@@ -170,19 +184,23 @@ stop us from trampling on our previous work. The conflict is marked in
 in the affected file:
 
 ~~~
-$ cat mars.txt
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
+# Gapminder Analysis
+
+**Authors:** Anthony Valente, Daniel McCloy
+**Depends:** ggplot2, dplyr
+**Start Date:** 2020-01-28
+
+This repository contains analyses of life expectancy vs GDP.
 <<<<<<< HEAD
-We added a different line in the other copy
+We also explore the dynamics of population growth.
 =======
-This line added to Wolfman's copy
->>>>>>> dabb4c8c450e8475aee9b14b4383acc99f42af1d
+We also explore the change in life expectancy with year.
+>>>>>>> cce9ddcb8d9aae72e5c74bdc033702e667eaefe2
 ~~~
 {: .output}
 
@@ -200,24 +218,28 @@ or get rid of the change entirely.
 Let's replace both so that the file looks like this:
 
 ~~~
-$ cat mars.txt
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
-We removed the conflict on this line
+# Gapminder Analysis
+
+**Authors:** Anthony Valente, Daniel McCloy
+**Depends:** ggplot2, dplyr
+**Start Date:** 2020-01-28
+
+This repository contains analyses of life expectancy vs GDP.
+We also explore the dynamics of population growth and the change in life expectancy with year.
 ~~~
 {: .output}
 
 To finish merging,
-we add `mars.txt` to the changes being made by the merge
+we add `README.md` to the changes being made by the merge
 and then commit:
 
 ~~~
-$ git add mars.txt
+$ git add README.md
 $ git status
 ~~~
 {: .language-bash}
@@ -229,7 +251,7 @@ All conflicts fixed but you are still merging.
 
 Changes to be committed:
 
-	modified:   mars.txt
+	modified:   README.md
 
 ~~~
 {: .output}
@@ -240,7 +262,7 @@ $ git commit -m "Merge changes from GitHub"
 {: .language-bash}
 
 ~~~
-[master 2abf2b1] Merge changes from GitHub
+[master 4c5d256] Merge changes from GitHub
 ~~~
 {: .output}
 
@@ -252,15 +274,14 @@ $ git push origin master
 {: .language-bash}
 
 ~~~
-Enumerating objects: 10, done.
-Counting objects: 100% (10/10), done.
-Delta compression using up to 8 threads
+Counting objects: 6, done.
+Delta compression using up to 4 threads.
 Compressing objects: 100% (6/6), done.
-Writing objects: 100% (6/6), 645 bytes | 645.00 KiB/s, done.
+Writing objects: 100% (6/6), 618 bytes | 618.00 KiB/s, done.
 Total 6 (delta 4), reused 0 (delta 0)
 remote: Resolving deltas: 100% (4/4), completed with 2 local objects.
-To https://github.com/vlad/planets.git
-   dabb4c8..2abf2b1  master -> master
+To https://github.com/AnthonyOfSeattle/gapminder-analysis.git
+   cce9ddc..4c5d256  master -> master
 ~~~
 {: .output}
 
@@ -277,14 +298,14 @@ $ git pull origin master
 remote: Enumerating objects: 10, done.
 remote: Counting objects: 100% (10/10), done.
 remote: Compressing objects: 100% (2/2), done.
-remote: Total 6 (delta 4), reused 6 (delta 4), pack-reused 0
 Unpacking objects: 100% (6/6), done.
-From https://github.com/vlad/planets
+remote: Total 6 (delta 4), reused 6 (delta 4), pack-reused 0
+From https://github.com/AnthonyOfSeattle/gapminder-analysis
  * branch            master     -> FETCH_HEAD
-    dabb4c8..2abf2b1  master     -> origin/master
-Updating dabb4c8..2abf2b1
+   cce9ddc..4c5d256  master     -> origin/master
+Updating cce9ddc..4c5d256
 Fast-forward
- mars.txt | 2 +-
+ README.md | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 ~~~
 {: .output}
@@ -292,15 +313,19 @@ Fast-forward
 We get the merged file:
 
 ~~~
-$ cat mars.txt
+$ cat README.md
 ~~~
 {: .language-bash}
 
 ~~~
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
-We removed the conflict on this line
+# Gapminder Analysis
+
+**Authors:** Anthony Valente, Daniel McCloy
+**Depends:** ggplot2, dplyr
+**Start Date:** 2020-01-28
+
+This repository contains analyses of life expectancy vs GDP.
+We also explore the dynamics of population growth and the change in life expectancy with year.
 ~~~
 {: .output}
 

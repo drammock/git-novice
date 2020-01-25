@@ -17,8 +17,8 @@ or intermediate files created during data analysis?
 Let's create a few dummy files:
 
 ~~~
-$ mkdir results
-$ touch a.dat b.dat c.dat results/a.out results/b.out
+$ mkdir tmp
+$ touch data/a.dat data/b.dat data/c.dat tmp/a.out tmp/b.out
 ~~~
 {: .language-bash}
 
@@ -34,18 +34,17 @@ On branch master
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
 
-	a.dat
-	b.dat
-	c.dat
-	results/
+	data/a.dat
+	data/b.dat
+	data/c.dat
+	tmp/
 
 nothing added to commit but untracked files present (use "git add" to track)
 ~~~
 {: .output}
 
-Putting these files under version control would be a waste of disk space.
-What's worse,
-having them all listed could distract us from changes that actually matter,
+Maybe we think that putting these files under version control would be a waste of disk space.
+Or worse, having them all listed could distract us from changes that actually matter,
 so let's tell Git to ignore them.
 
 We do this by creating a file in the root directory of our project called `.gitignore`:
@@ -58,12 +57,12 @@ $ cat .gitignore
 
 ~~~
 *.dat
-results/
+tmp/
 ~~~
 {: .output}
 
 These patterns tell Git to ignore any file whose name ends in `.dat`
-and everything in the `results` directory.
+and everything in the `tmp` directory. 
 (If any of these files were already being tracked,
 Git would continue to track them.)
 
@@ -94,7 +93,7 @@ Let's add and commit `.gitignore`:
 
 ~~~
 $ git add .gitignore
-$ git commit -m "Ignore data files and the results folder."
+$ git commit -m "Ignore data files and the tmp folder."
 $ git status
 ~~~
 {: .language-bash}
@@ -108,20 +107,20 @@ nothing to commit, working directory clean
 As a bonus, using `.gitignore` helps us avoid accidentally adding to the repository files that we don't want to track:
 
 ~~~
-$ git add a.dat
+$ git add data/a.dat
 ~~~
 {: .language-bash}
 
 ~~~
 The following paths are ignored by one of your .gitignore files:
-a.dat
+data/a.dat
 Use -f if you really want to add them.
 ~~~
 {: .output}
 
 If we really want to override our ignore settings,
 we can use `git add -f` to force Git to add something. For example,
-`git add -f a.dat`.
+`git add -f data/a.dat`.
 We can also always see the status of ignored files if we want:
 
 ~~~
@@ -134,10 +133,10 @@ On branch master
 Ignored files:
  (use "git add -f <file>..." to include in what will be committed)
 
-        a.dat
-        b.dat
-        c.dat
-        results/
+        data/a.dat
+        data/b.dat
+        data/c.dat
+        tmp/
 
 nothing to commit, working directory clean
 ~~~

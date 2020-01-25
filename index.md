@@ -2,17 +2,17 @@
 layout: lesson
 ---
 
-Wolfman and Dracula have been hired by Universal Missions (a space
-services spinoff from Euphoric State University) to investigate if it
-is possible to send their next planetary lander to Mars.  They want to
-be able to work on the plans at the same time, but they have run into
-problems doing this in the past.  If they take turns, each one will
-spend a lot of time waiting for the other to finish, but if they work
-on their own copies and email changes back and forth things will be
+At the last lab meeting, we made quite an impressive presentation 
+of our initial Gapminder analyses. In fact, one of our labmates 
+was keen to collaborate and answer some of their own questions. They want 
+to be able to work on the analysis at the same time as you, but they have 
+run into problems doing this in the past. If you two take turns, both of you
+will spend a lot of time waiting for the other to finish, but if you work
+on your own copies and email changes back and forth things will be
 lost, overwritten, or duplicated.
 
 A colleague suggests using [version control]({{ page.root }}/reference#version-control) to
-manage their work. Version control is better than mailing files back and forth:
+manage your work. Version control is better than mailing files back and forth:
 
 *   Nothing that is committed to version control is ever lost, unless
     you work really, really hard at it. Since all old versions of

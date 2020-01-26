@@ -21,7 +21,7 @@ of configurations we will set as we get started with Git:
 
 On a command line, Git commands are written as `git verb options`,
 where `verb` is what we actually want to do and `options` is additional optional information which may be needed for the `verb`. So here is how
-Dracula sets up his new laptop:
+Anthony sets up his new laptop:
 
 ~~~
 $ git config --global user.name "Anthony Valente"

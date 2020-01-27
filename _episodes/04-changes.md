@@ -182,7 +182,6 @@ On branch master
 Changes to be committed:
   (use "git reset HEAD <file>..." to unstage)
 
-	new file:   data/.Rhistory
 	new file:   data/gapminder_data.csv
 	new file:   functions/functions-lesson.R
 	new file:   gapminder-analysis.rmd
@@ -201,7 +200,6 @@ $ git commit -m "Add initial results of analyses"
 ~~~
 [master 8c4e418] Add initial results of analyses
  5 files changed, 1901 insertions(+)
- create mode 100644 data/.Rhistory
  create mode 100644 data/gapminder_data.csv
  create mode 100644 functions/functions-lesson.R
  create mode 100644 gapminder-analysis.rmd

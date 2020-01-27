@@ -45,7 +45,7 @@ I also explore the change in life expectancy with year.
 Now, let's see what we get.
 
 ~~~
-$ git diff HEAD mars.txt
+$ git diff HEAD README.md
 ~~~
 {: .language-bash}
 
@@ -299,10 +299,10 @@ $ git checkout HEAD README.md
 > ~~~
 > {: .language-bash}
 >
-> to revert `mars.txt` to its state after the commit `2e8b51d`. But be careful! 
+> to revert `README.md` to its state after the commit `2e8b51d`. But be careful! 
 > The command `checkout` has other important functionalities and Git will misunderstand
 > your intentions if you are not accurate with the typing. For example, 
-> if you forget `mars.txt` in the previous command.
+> if you forget `README.md` in the previous command.
 >
 > ~~~
 > $ git checkout 2e8b51d
